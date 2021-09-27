@@ -1,0 +1,15 @@
+<div class="container text-center" style="margin-top: 100px;">
+        <div *ngIf="!registerMode" class="container text-center">
+            <h1>Find you match</h1>
+            <button class="btn btn-primary btn-lg" (click)="registerToggle()">Register</button>
+        </div>
+
+        <div *ngIf="registerMode" class="container">
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <app-register (cancelRegister)="cancelRegister($event)"></app-register>
+                </div>
+            </div>
+        </div>
+</div>
+
