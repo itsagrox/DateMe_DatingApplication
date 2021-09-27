@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
+
 
 @Component({
   selector: 'app-nav',
@@ -10,6 +13,7 @@ import { AccountService } from 'src/app/services/account.service';
 })
 export class NavComponent implements OnInit {
 
+  isCollapsed=true
   model:any={
     username:'',
     password:''
@@ -17,7 +21,7 @@ export class NavComponent implements OnInit {
   loggedIn=false;
 
 
-  constructor(public accountService:AccountService) { }
+  constructor(public accountService:AccountService,private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
 
@@ -26,15 +30,18 @@ export class NavComponent implements OnInit {
 login(){
   this.accountService.login(this.model).subscribe(response=>{
     console.log(response);
+    this.router.navigateByUrl('/members')
     this.loggedIn=true
   },error=>{
-    console.log(error)
+    console.log(error);
+    this.toastr.error(error.error)
   }
   )
 }
 
 logout(){
   this.accountService.logout();
+  this.router.navigateByUrl('/')
   this.loggedIn=false
 }
 
