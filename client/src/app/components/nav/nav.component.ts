@@ -32,9 +32,6 @@ login(){
     console.log(response);
     this.router.navigateByUrl('/members')
     this.loggedIn=true
-  },error=>{
-    console.log(error);
-    this.toastr.error(error.error)
   }
   )
 }
